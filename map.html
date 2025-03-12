@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>选择地图导航</title>
+  <style>
+    body { font-family: Arial, sans-serif; padding: 20px; }
+    a { display: block; margin: 10px 0; padding: 10px; background: #f0f0f0; text-decoration: none; color: #333; }
+  </style>
+</head>
+<body>
+  <h3>请选择地图应用导航：</h3>
+  <!-- 动态替换经纬度 -->
+  <a id="gaode" href="#">高德地图</a>
+  <a id="baidu" href="#">百度地图</a>
+  <a id="google" href="#">Google 地图</a>
+
+  <script>
+    // 从URL参数获取经纬度（示例：?lat=29.7100&lng=116.0020）
+    const params = new URLSearchParams(window.location.search);
+    const lat = params.get('lat');
+    const lng = params.get('lng');
+
+    // 动态生成地图链接
+    if (lat && lng) {
+      document.getElementById('gaode').href = `https://uri.amap.com/marker?position=${lng},${lat}`;
+      document.getElementById('baidu').href = `https://api.map.baidu.com/marker?location=${lat},${lng}`;
+      document.getElementById('google').href = `https://maps.google.com/maps?q=${lat},${lng}`;
+    } else {
+      alert("未获取到位置信息！");
+    }
+
+    // 微信内提示用浏览器打开
+    if (/MicroMessenger/.test(navigator.userAgent)) {
+      alert("请点击右上角，选择在浏览器打开！");
+    }
+  </script>
+</body>
+</html>
